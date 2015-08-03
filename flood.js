@@ -35,32 +35,33 @@ function drawTaiwan(){
   var path = d3.geo.path().projection(projection);
 
   d3.csv("http://dorisofsky.github.io/disastermap/disaster.csv", function(data){
-    d3.json("TWN_TOWN_v2_topo.json", function(error, town){
+
+    d3.json("TWN_TOWN_v2_topo3.json", function(error, town){
       for (var i=0; i< data.length; i++){
-        var dataTown = data[i].TOWN_ID;
+        var dataTown = data[i].id;
         var dataValue = data[i].flood;
 
-        for(var j=0; j<town.features.properties.length;j++){
-          var jsonTown = town.features[j].properties.TOWN_ID;
+        for(var j=0; j<town.objects.TWN_TOWN_v2.geometries.length;j++){
+          var jsonTown = town.objects.TWN_TOWN_v2.geometries[j].id;
 
           if(dataTown==jsonTown){
-            town.features[j].properties.flood = dataValue
+            town.objects.TWN_TOWN_v2.geometries[j].flood = dataValue
             break;
           }
 
         }
       }
     
-      var sectortown = topojson.feature(town, town.objects.sector);
+      var sectortown = topojson.feature(town, town.objects.TWN_TOWN_v2);
 
       svg.append("g")
         .attr("class", "sector")
         .selectAll("path")
-        .data(topojson.feature(town, town.features).features)
+        .data(topojson.feature(town, town.objects.TWN_TOWN_v2).features)
         .enter().append("path")
         .attr("d", path)
         .style("fill", function(d) {
-           var Flood = d.properties.flood;
+           var Flood = d.geometries.flood;
               if (Flood) {return color(Flood);} 
               else {return "#ddd";}
             })
@@ -70,7 +71,7 @@ function drawTaiwan(){
           d3.select(this).transition().duration(300).style("opacity", 1);
           div.transition().duration(300)
           .style("opacity", 1)
-          div.text(d.properties.TOWN+ " ─ 洪災數量：" + d.properties.flood) //+ " : " + rateById[d.TOWN_ID] d.properties.T_Name
+          div.text(d.geometries.TOWN+ " ─ 洪災數量：" + d.geometries.flood) //+ " : " + rateById[d.TOWN_ID] d.properties.T_Name
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY -30) + "px");
         })
