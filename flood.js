@@ -55,16 +55,16 @@ function drawTaiwan(){
       var sectortown = topojson.feature(town, town.objects.TWN_TOWN_v2);
 
       svg.append("g")
-        .attr("class", "sector")
+        .attr("class", "TWN_TOWN_v2")
         .selectAll("path")
         .data(topojson.feature(town, town.objects.TWN_TOWN_v2).features)
         .enter().append("path")
         .attr("d", path)
         .style("fill", function(d) {
-           var Flood = d.geometries.flood;
-              if (Flood) {return color(Flood);} 
-              else {return "#ddd";}
-            })
+          var Flood = d.geometries.flood;
+          if (Flood) {return color(Flood);} 
+                else {return "#ddd";}
+        })
         .style("opacity", 0.8)
 
         .on("mouseover", function(d) {
