@@ -57,7 +57,7 @@ function drawTaiwan(){
       svg.append("g")
         .attr("class", "TWN_TOWN_v2")
         .selectAll("path")
-        .data(topojson.feature(town, town.objects.TWN_TOWN_v2).geometries)
+        .data(topojson.feature(town, town.objects.TWN_TOWN_v2).features)
         .enter().append("path")
         .attr("d", path)
         .style("fill", function(d) {
