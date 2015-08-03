@@ -71,7 +71,7 @@ function drawTaiwan(){
           d3.select(this).transition().duration(300).style("opacity", 1);
           div.transition().duration(300)
           .style("opacity", 1)
-          div.text(d.geometries.TOWN+ " ─ 洪災數量：" + d.geometries.flood) //+ " : " + rateById[d.TOWN_ID] d.properties.T_Name
+          div.text(d.geometries.TOWN+ " ─ 洪災數量：" + d.flood) //+ " : " + rateById[d.TOWN_ID] d.properties.T_Name
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY -30) + "px");
         })
