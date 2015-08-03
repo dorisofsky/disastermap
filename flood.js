@@ -23,14 +23,14 @@ function drawTaiwan(){
     .style("opacity", 0);
 
   var svg = d3.select("body").append("svg")
-  .attr("width", width)
-  .attr("height", height)
-  .style("margin", "10px auto");
+    .attr("width", width)
+    .attr("height", height)
+    .style("margin", "10px auto");
 
   var projection = d3.geo.mercator()
-  .center([121,24])
-  .scale(8000)
-  .translate([width / 2, height / 2]);
+    .center([121,24])
+    .scale(8000)
+    .translate([width / 2, height / 2]);
 
   var path = d3.geo.path().projection(projection);
 
@@ -61,7 +61,7 @@ function drawTaiwan(){
         .enter().append("path")
         .attr("d", path)
         .style("fill", function(d) {
-          var Flood = d.geometries.flood;
+          var Flood = d.flood;
           if (Flood) {return color(Flood);} 
                 else {return "#ddd";}
         })
